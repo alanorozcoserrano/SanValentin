@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Mi San Valentín 💖</title>
+
+<style>
+body{
+    margin:0;
+    overflow:hidden;
+    font-family:'Segoe UI',sans-serif;
+    background:linear-gradient(135deg,#ff4e8d,#ff99c8);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+/* Carta principal */
+.card{
+    width:800px;
+    height:500px;
+    background:#f3e4d7;
+    border-radius:20px;
+    box-shadow:0 30px 60px rgba(0,0,0,.3);
+    display:flex;
+    padding:30px;
+    position:relative;
+    overflow:hidden;
+}
+
+.text{
+    width:45%;
+}
+
+.tree{
+    width:55%;
+    position:relative;
+    display:flex;
+    justify-content:center;
+    align-items:flex-end;
+}
+
+/* Tronco */
+.trunk{
+    width:30px;
+    height:150px;
+    background:#7a4b2c;
+    border-radius:6px;
+    position:absolute;
+    bottom:60px;
+}
+
+/* Copa */
+.leaves{
+    position:absolute;
+    bottom:190px;
+    width:260px;
+    height:230px;
+}
+
+/* Corazones del árbol */
+.leaves span{
+    position:absolute;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float{
+    0%,100%{ transform:translateY(0);}
+    50%{ transform:translateY(-10px);}
+}
+
+/* Chanclas */
+.chanclas{
+    position:absolute;
+    bottom:5px;
+    display:flex;
+    gap:20px;
+}
+
+.chancla{
+    font-size:60px;
+    animation: latido 1.8s ease-in-out infinite;
+}
+
+.izquierda{ transform: rotate(-15deg); }
+.derecha{ transform: rotate(15deg); }
+
+@keyframes latido{
+    0%,100%{ transform: scale(1);}
+    50%{ transform: scale(1.25);}
+}
+
+/* BOTONES */
+.botones{
+    margin-top:15px;
+}
+
+button{
+    padding:10px 18px;
+    border:none;
+    border-radius:20px;
+    margin-right:10px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.si{
+    background:#ff2e63;
+    color:white;
+}
+
+.no{
+    background:#444;
+    color:white;
+}
+
+button:hover{
+    transform:scale(1.1);
+}
+
+/* Carta que aparece */
+.carta-final{
+    position:absolute;
+    width:420px;
+    max-height:300px;
+    background:white;
+    border-radius:15px;
+    box-shadow:0 20px 40px rgba(0,0,0,.4);
+    padding:25px;
+    font-size:16px;
+    line-height:1.4;
+    overflow-y:auto; /* 👈 activa scroll si se pasa */
+    transform:scale(0);
+    transition:.6s;
+    text-align:left;
+}
+
+
+.carta-final.activa{
+    transform:scale(1);
+}
+
+</style>
+</head>
+<body>
+
+<div class="card">
+
+    <div class="text">
+        <h2>Hola mi chanclitas 🩴💘</h2>
+        <p>Te tengo una pregunta:</p>
+        <p><b>¿Quieres ser mi San Valentín?<br>
+        (si dices que sí es sí y si dices que no es sí también)</b></p>
+
+        <div class="botones">
+            <button class="si" onclick="mostrarCarta()">Sí💘</button>
+            <button class="no" onclick="mostrarCarta()">No</button>
+        </div>
+    </div>
+
+    <div class="tree">
+        <div class="trunk"></div>
+        <div class="leaves" id="leaves"></div>
+
+        <div class="chanclas">
+            <span class="chancla izquierda">🩴</span>
+            <span class="chancla derecha">🩴</span>
+        </div>
+    </div>
+
+    <div class="carta-final" id="cartaFinal">
+        💌<br><br>
+        Te amo ❤️<br>
+        Gracias por ser parte de mi vida y de mis días,<br>
+        eres lo que siempre quise para mí, con esa sonrisa tan linda<br>
+        y ese carisma que tienes, que pones a todos contentos con tu presencia.<br>
+        Valoro siempre todo el esfuerzo que le pones a las cosas, a tu trabajo,<br>
+        a nuestro hogar, a la relación y a mí, que siempre me has demostrado que soy<br>
+        lo más importante para ti y porque me has demostrado que,<br>
+        con un par de chanclitas, estás dispuesta a ir a donde sea conmigo.<br>
+        Todos los planes que yo tenga, tú los apoyas.<br>
+        FELIZ DÍA DEL AMOR Y, SOBRE TODO,<br>
+        FELIZ DÍA DE LA AMISTAD, QUE NOS TRAJO A HOY ESTAR JUNTOS POR SIEMPRE.<br>
+        Te veo en un rato, corazón 🥰
+        
+    </div>
+
+</div>
+
+<script>
+
+/* ===== Árbol con muchos corazones ===== */
+
+const leavesContainer = document.getElementById("leaves");
+
+for(let i=0;i<400;i++){
+    const t = Math.random() * Math.PI * 2;
+    const x = 16 * Math.pow(Math.sin(t),3);
+    const y = 13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t);
+
+    const heart = document.createElement("span");
+    heart.innerHTML = "❤";
+
+    heart.style.left = (130 + x*6 + (Math.random()*15)) + "px";
+    heart.style.top = (120 - y*6 + (Math.random()*15)) + "px";
+
+    heart.style.fontSize = (14 + Math.random()*14) + "px";
+    heart.style.color = `hsl(${Math.random()*15}, 90%, 55%)`;
+    heart.style.animationDuration = (2 + Math.random()*3)+"s";
+
+    leavesContainer.appendChild(heart);
+}
+
+/* ===== Mostrar carta ===== */
+
+function mostrarCarta(){
+    document.getElementById("cartaFinal").classList.add("activa");
+}
+
+</script>
+
+</body>
+</html>
